@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Sidebar menu With Sub-menus | Using HTML, CSS & JQuery</title>
+   <link rel="stylesheet" href="css/estilos2.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+ </head>
+ <body>
+
+
+    <!--------------MENU FULL SCREEN--------------------->
+   <div class="menu-btn">
+     <i class="fas fa-bars"></i>
+   </div>
+   <h2 class="logo">Mater</h2>
+
+   <div class="side-bar">
+     <div class="close-btn">
+       <i class="fas fa-times"></i>
+     </div>
+     <div class="menu">
+
+       <div class="item">
+         <a class="sub-btn">Colletion<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+           <a href="#" class="sub-item" onmouseover="hover()" onmouseout="hoverclose()">Sub Item 01</a>
+           <a href="#" class="sub-item">Sub Item 02</a>
+           <a href="#" class="sub-item" >Sub Item 03</a>
+         </div>
+       </div>
+       <div id="submenu" class="item" ><a href="#">Desing</a></div>
+       <div id="submenu" class="item" ><a href="#">Craftmanship</a></div>
+       <div id="submenu" class="item" ><a href="#">Ethics</a></div>
+
+
+     </div>
+
+       <div id="menu-img" class="img" >
+        <div id="content-light">   
+           <img id="hover" src="img/sofanegro.jpg" style="width: 0%;" alt=""> 
+        </div>
+       </div>
+   </div>
+
+
+
+       <!--------------CONTENIDO--------------------->
+
+   <div class="contenido">
+    <div class="btn"><button id="abs">Product Details</button></div>
+
+       <div class="left">
+         <div>
+           <P class="gris">Michael W.Dreeben</P>
+           <h3>Shell Dining Chair</h3>
+           <p class="gris">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Soluta recusandae deserunt laborum! Eligendi consectetur.
+            recusandae deserunt laborum! Eligendi consectetur</p>
+            
+         </div>
+         <div>
+            <P class="gris">Jeaper K.Thomas</P>
+            <h3>Dunes Anthrazite Black</h3>
+            <p class="gris">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+              Soluta recusandae deserunt laborum! Eligendi consectetur.
+              recusandae deserunt laborum! Eligendi consectetur</p>
+            
+          </div>
+        </div>
+    
+        <div class="right">
+                <div class="img" style="background: url('img/pack-de-2-sillas-altea-en-madera-de-pino-42-x-45-x-98-cm-_sillas+madera.jpg');"></div>
+                <div class="img" id="made" style="background: url('img/mesa.jpg');"></div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="down">
+                01<br> 
+                <span class="slidesbtn"> Shell Dining Chair</span>
+            </button>
+            <button class="up">
+                02<br>  
+                <span class="slidesbtn">Dunes Anthrazite</span>
+            </button>
+        </div>
+       
+
+
+    </div>   
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <script type="text/javascript">
+
+   $(document).ready(function(){
+     //jquery for toggle sub menus
+     $('.sub-btn').click(function(){
+       $(this).next('.sub-menu').slideToggle();
+       $(this).find('.dropdown').toggleClass('rotate');
+     });
+
+     //jquery for expand and collapse the sidebar
+     $('.menu-btn').click(function(){
+       $('.side-bar').addClass('active');
+       $('.menu-btn').css("visibility", "hidden");
+       $('.logo').addClass('logowhite');
+     });
+
+     $('.close-btn').click(function(){
+       $('.side-bar').removeClass('active');
+       $('.menu-btn').css("visibility", "visible");
+       $('.logo').removeClass('logowhite');
+     });
+});
+</script>
+
+
+<script>
+    function hover() {
+      let contentDark=document.getElementById('hover').style.width='100%';         
+    }
+
+    function hoverclose() {
+      let contentDark=document.getElementById('hover').style.width='0%';         
+    }
+  </script>
+
+
+<!--------------JS DE CONTENIDO--------------->
+<script>
+    const sliderContainer=document.querySelector('.contenido');
+
+    const slideLeft=document.querySelector('.left');
+    const slideRight=document.querySelector('.right');
+
+    const upButton=document.querySelector('.up');
+    const downButtton=document.querySelector('.down');
+
+    const slideLength=slideLeft.querySelectorAll('div').length; 
+    let activeSlide=0;
+
+    slideLeft.style.top=`-${(slideLength - 1) *100}vh`
+
+//Función a los botónes
+upButton.addEventListener('click', () => changeSlide('up'));
+downButtton.addEventListener('click', () => changeSlide('down'));
+
+const changeSlide=(direction) => { 
+    const sliderHeight = sliderContainer.clientHeight;
+    if (direction ==='up') {
+        activeSlide++
+        if (activeSlide > slideLength -1) {
+            activeSlide = 0;
+        }
+    }
+    else if (direction ==='down') {
+        activeSlide--;
+        if (activeSlide < 0) {
+            activeSlide = slideLength -1;
+        }
+    }
+
+    slideRight.style.transform = `translateY(-${activeSlide * sliderHeight}px)`;
+    slideLeft.style.transform = `translateY(${activeSlide * sliderHeight}px)`;
+};
+
+
+
+
+</script>
+
+ </body>
+</html>
